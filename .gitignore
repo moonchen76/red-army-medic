@@ -1,0 +1,12 @@
+# Word 临时锁文件
+~$*.docx
+
+# 本地开发用的临时脚本与中间产物
+_read_docx.py
+_doc.txt
+_check.js
+_check2.js
+
+# 系统文件
+.DS_Store
+Thumbs.db

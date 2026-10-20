@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="红色军医：战地救护日记 —— 红色科普·休闲模拟救护网页游戏">
+<title>红色军医：战地救护日记</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 全局装饰层：旧纸张纹理 + 边角纹样 -->
+<div class="paper-grain" aria-hidden="true"></div>
+<div class="paper-vignette" aria-hidden="true"></div>
+<svg class="corner-ornament corner-tl" viewBox="0 0 120 120" aria-hidden="true">
+  <path d="M4 34 L4 4 L34 4" class="orn-line"/>
+  <path d="M4 60 L4 44 M44 4 L60 4" class="orn-line"/>
+  <path d="M14 14 l10 6 -6 10 -10 -6 z" class="orn-star"/>
+</svg>
+<svg class="corner-ornament corner-tr" viewBox="0 0 120 120" aria-hidden="true">
+  <path d="M116 34 L116 4 L86 4" class="orn-line"/>
+  <path d="M116 60 L116 44 M76 4 L60 4" class="orn-line"/>
+  <path d="M106 14 l10 6 -6 10 -10 -6 z" class="orn-star"/>
+</svg>
+
+<div id="app">
+
+  <!-- ============ 标题屏 ============ -->
+  <section class="screen is-active" id="screen-title">
+    <div class="title-wrap">
+      <div class="title-badge" id="title-star"></div>
+      <h1 class="game-title">红色军医<span class="title-sep">·</span>战地救护日记</h1>
+      <p class="game-subtitle">从一个人、一只脚，到一支队伍、一条征途</p>
+      <div class="title-scene" id="title-scene"></div>
+      <div class="title-actions">
+        <button class="btn btn-primary btn-lg" id="btn-start">开 始 游 戏</button>
+        <div class="title-sub-actions">
+          <button class="btn btn-ghost" id="btn-menu-codex">历史图鉴</button>
+          <button class="btn btn-ghost" id="btn-continue" hidden>继续游戏</button>
+        </div>
+      </div>
+      <p class="title-note">本游戏无战斗、无暴力、无血腥 · 红色科普向 · 内容尊重史实</p>
+    </div>
+  </section>
+
+  <!-- ============ 开篇引导 ============ -->
+  <section class="screen" id="screen-intro">
+    <div class="intro-wrap">
+      <div class="intro-portrait" id="intro-portrait"></div>
+      <div class="intro-card">
+        <div class="intro-progress" id="intro-progress"></div>
+        <div class="intro-body" id="intro-body"></div>
+        <div class="intro-foot">
+          <button class="btn btn-text" id="btn-intro-skip">跳过简介</button>
+          <div class="intro-nav">
+            <span class="intro-index" id="intro-index"></span>
+            <button class="btn btn-sm btn-ghost" id="btn-intro-prev">上一页</button>
+            <button class="btn btn-sm btn-primary" id="btn-intro-next">下一页</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 主菜单 ============ -->
+  <section class="screen" id="screen-menu">
+    <div class="menu-wrap">
+      <header class="menu-head">
+        <h2 class="menu-title">战 地 日 记</h2>
+        <p class="menu-sub">选择要翻开的那一页</p>
+      </header>
+      <div class="menu-list" id="menu-list"></div>
+      <footer class="menu-foot">
+        <div class="star-score" id="menu-score"></div>
+        <div class="menu-tools">
+          <button class="btn btn-ghost btn-sm" id="btn-menu-codex2">历史图鉴</button>
+          <button class="btn btn-ghost btn-sm" id="btn-reset">重置进度</button>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ 游戏屏 ============ -->
+  <section class="screen" id="screen-game">
+    <header class="hud">
+      <button class="hud-back" id="btn-game-quit" title="返回菜单">‹ 返回</button>
+      <div class="hud-center">
+        <div class="hud-level" id="hud-level"></div>
+        <div class="hud-step" id="hud-step"></div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-vitals" id="hud-vitals" hidden>
+          <div class="vitals-label">全队伤病值</div>
+          <div class="vitals-bar"><i id="vitals-fill"></i></div>
+          <div class="vitals-num" id="vitals-num"></div>
+        </div>
+        <button class="hud-sound" id="btn-sound" title="声音开关">音效 开</button>
+      </div>
+    </header>
+
+    <div class="stage-outer">
+      <div class="stage-scene" id="stage-scene"></div>
+      <main class="stage" id="stage"></main>
+    </div>
+
+    <footer class="dialogue" id="dialogue" hidden>
+      <div class="dialogue-speaker" id="dialogue-speaker"></div>
+      <p class="dialogue-text" id="dialogue-text"></p>
+      <button class="dialogue-next" id="dialogue-next">继续 ▾</button>
+    </footer>
+  </section>
+
+  <!-- ============ 图鉴屏 ============ -->
+  <section class="screen" id="screen-codex">
+    <div class="codex-wrap">
+      <header class="codex-head">
+        <h2 class="codex-title">红 色 军 医 图 鉴</h2>
+        <p class="codex-sub">每通关一段经历，收入一页史料</p>
+        <div class="star-score" id="codex-score"></div>
+      </header>
+      <div class="codex-list" id="codex-list"></div>
+      <footer class="codex-foot">
+        <button class="btn btn-primary" id="btn-codex-back">返 回</button>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ 结局屏 ============ -->
+  <section class="screen" id="screen-ending">
+    <div class="ending-wrap">
+      <div class="ending-scene" id="ending-scene"></div>
+      <div class="ending-text" id="ending-text"></div>
+      <div class="ending-actions">
+        <button class="btn btn-primary" id="btn-ending-menu">回到日记首页</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+<div id="drag-layer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
